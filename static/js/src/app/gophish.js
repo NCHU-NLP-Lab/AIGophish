@@ -109,6 +109,14 @@ var api = {
             return query("/campaigns/" + id + "/summary", "GET", {}, true)
         }
     },
+    generate: {
+        get: function() {
+            return query("/generateEmail/", "GET", {}, !1)
+        },
+        post: function(e) {
+            return query("/generateEmail/", "POST", e, !1)
+        }
+    },
     // groups contains the endpoints for /groups
     groups: {
         // get() - Queries the API for GET /groups

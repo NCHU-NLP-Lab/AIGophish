@@ -68,6 +68,15 @@ function save(idx) {
     }
 }
 
+function generate(idx) {
+	keyword = $("#keyword").val()
+    api.generate.post(keyword).success(function(getEmail) {
+        email = getEmail
+    })
+    $("#subject").val(email.title)
+  	$("#text_editor").val(email.context)
+}
+
 function dismiss() {
     $("#modal\\.flashes").empty()
     $("#attachmentsTable").dataTable().DataTable().clear().draw()
@@ -160,7 +169,9 @@ function attach(files) {
 }
 
 function edit(idx) {
-    $("#modalSubmit").unbind('click').click(function () {
+    $("#generateEmail").unbind("click").click(function() {
+        generate(idx)
+    }),$("#modalSubmit").unbind('click').click(function () {
         save(idx)
     })
     $("#attachmentUpload").unbind('click').click(function () {
