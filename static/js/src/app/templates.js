@@ -20,6 +20,7 @@ function save(idx) {
     }
     template.name = $("#name").val()
     template.subject = $("#subject").val()
+    template.keyword=$("#keyword").val()
     template.html = CKEDITOR.instances["html_editor"].getData();
     // Fix the URL Scheme added by CKEditor (until we can remove it from the plugin)
     template.html = template.html.replace(/https?:\/\/{{\.URL}}/gi, "{{.URL}}")
@@ -73,8 +74,9 @@ function generate(idx) {
     api.generate.post(keyword).success(function(getEmail) {
         email = getEmail
     })
-    $("#subject").val(email.title)
-  	$("#text_editor").val(email.context)
+    // $("#subject").val(email.title)
+  	// $("#text_editor").val(email.context)
+    $("#text_editor").val(email)
 }
 
 function dismiss() {
@@ -82,6 +84,7 @@ function dismiss() {
     $("#attachmentsTable").dataTable().DataTable().clear().draw()
     $("#name").val("")
     $("#subject").val("")
+    $("#keyword").val("")
     $("#text_editor").val("")
     $("#html_editor").val("")
     $("#modal").modal('hide')
@@ -200,6 +203,7 @@ function edit(idx) {
         template = templates[idx]
         $("#name").val(template.name)
         $("#subject").val(template.subject)
+        $("#keyword").val(template.keyword)
         $("#html_editor").val(template.html)
         $("#text_editor").val(template.text)
         attachmentRows = []
@@ -258,6 +262,7 @@ function copy(idx) {
     template = templates[idx]
     $("#name").val("Copy of " + template.name)
     $("#subject").val(template.subject)
+    $("#keyword").val(template.keyword)
     $("#html_editor").val(template.html)
     $("#text_editor").val(template.text)
     $.each(template.attachments, function (i, file) {
@@ -298,6 +303,7 @@ function importEmail() {
                 $("#text_editor").val(data.text)
                 $("#html_editor").val(data.html)
                 $("#subject").val(data.subject)
+                $("#keyword").val(data.keyword)
                 // If the HTML is provided, let's open that view in the editor
                 if (data.html) {
                     CKEDITOR.instances["html_editor"].setMode('wysiwyg')
