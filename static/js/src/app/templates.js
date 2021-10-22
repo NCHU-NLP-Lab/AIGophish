@@ -76,7 +76,7 @@ function generate(idx) {
     })
     // $("#subject").val(email.title)
   	// $("#text_editor").val(email.context)
-    email = "Dear Alex,\n\n" + email + "\n\nRespectfully yours,\nShirley Huang"
+    email = "Dear Alex,\n\n" + email + "\n\nBest regards,\nShirley Huang"
     $("#text_editor").val(email)
 }
 
