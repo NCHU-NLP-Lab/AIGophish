@@ -69,7 +69,7 @@ func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
 			defer r.Body.Close()
 
 			keyword, _ := strconv.Unquote(string(body))
-			keywordList := strings.Split(keyword, ",")
+			keywordList := strings.Split(keyword, ", ")
 
 			keywords := ""
 			for i := 0; i < len(keywordList); i++ {
