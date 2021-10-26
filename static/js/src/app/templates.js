@@ -70,6 +70,7 @@ function save(idx) {
 }
 
 function generate(idx) {
+    var email
 	keyword = $("#keyword").val()
     api.generate.post(keyword).success(function(getEmail) {
         email = getEmail
