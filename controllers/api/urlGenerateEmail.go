@@ -5,16 +5,16 @@ import (
 	"io/ioutil"
 	"strconv"
 	"fmt"
-	"strings"
+	// "strings"
 	"bytes"
 )
 
-// type Email struct {
-// 	Title        string       `json:"title"`
-// 	Context      string       `json:"context"`
-// }
+type Email struct {
+	Title        string       `json:"title"`
+	Context      string       `json:"context"`
+}
 
-func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
+func (as *Server) urlGenerateEmail(w http.ResponseWriter, r *http.Request) {
 	// var emails = []Email{
 	// 	{Title: "Meet the new Customer Support Representative", Context: "Dear team,\nI am pleased to introduce you to Willy who is starting today as a Customer Support Representative. She will be providing technical support and assistance to our users, making sure they enjoy the best experience with our products.\nFeel free to greet Willy in person and congratulate her with the new role!\nBest regards,\nLinda"},
 	// 	{Title: "Do you have student discounts for the Annual Coding Conference?", Context: "Greetings,\nI would like to ask if you provide student discounts for tickets to the Annual Coding Conference.\nI’m a full-time student at the University of Texas and I’m very excited about your event, but unfortunately, the ticket price is too high for me. I would appreciate if you could offer me an educational discount.Looking forward to hearing from you!\nBest,\nLinda"},
@@ -26,21 +26,21 @@ func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
 	// 	case r.Method == "POST":
 			
 	// 		body, _ := ioutil.ReadAll(r.Body)
-	// 		keyword, _ := strconv.Unquote(string(body))
+	// 		url, _ := strconv.Unquote(string(body))
 			
 			
-	// 		emails[0].Context =  keyword + "\n" + emails[0].Context
+	// 		emails[0].Context =  url + "\n" + emails[0].Context
 	// 		JSONResponse(w, emails[0], http.StatusCreated)
 	// }
 
 	switch {
 		case r.Method == "GET":
 
-			url := "https://api.nlpnchu.org/en-US/generate-phishing-email"
+			url := "http://140.120.182.90:49164/target_website/"
 			
-			keywords := `"golang", "website"`
+			target_website := `"https://edition.cnn.com/2021/11/05/economy/china-food-security-mic-intl-hnk/index.html"`
 
-			var jsonStr = []byte(`{"keywords":[`+keywords+`]}`)
+			var jsonStr = []byte(`{"url":`+target_website+`}`)
 			req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 			req.Header.Set("accept", "application/json")
 			req.Header.Set("Content-Type", "application/json")
@@ -58,9 +58,9 @@ func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
 			}
 
 			str := string(resBody)
-			result := str[2 : len(str) - 2]
+			// result := str[2 : len(str) - 2]
 
-			JSONResponse(w, result, http.StatusOK)
+			JSONResponse(w, str, http.StatusOK)
 
 		case r.Method == "POST":
 			
@@ -68,22 +68,12 @@ func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
 
 			defer r.Body.Close()
 
-			keyword, _ := strconv.Unquote(string(body))
-			keywordList := strings.Split(keyword, ", ")
+			target_website, _ := strconv.Unquote(string(body))
+			
+			fmt.Println(target_website)
 
-			keywords := ""
-			for i := 0; i < len(keywordList); i++ {
-				_keyword := `"` + keywordList[i] + `"`
-				if i == 0 {
-					keywords += _keyword
-				} else {
-					keywords += `, ` + _keyword
-				}
-			}
-			fmt.Println(keywords)
-
-			url := "https://api.nlpnchu.org/en-US/generate-phishing-email"
-			var jsonStr = []byte(`{"keywords":[`+keywords+`]}`)
+			url := "http://140.120.182.90:49164/target_website/"
+			var jsonStr = []byte(`{"url":"`+target_website+`"}`)
 			req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 			req.Header.Set("accept", "application/json")
 			req.Header.Set("Content-Type", "application/json")
@@ -101,8 +91,8 @@ func (as *Server) GenerateEmail(w http.ResponseWriter, r *http.Request) {
 			}
 
 			str := string(resBody)
-			result := str[2 : len(str) - 2]
+			// result := str[2 : len(str) - 2]
 
-			JSONResponse(w, result, http.StatusCreated)
+			JSONResponse(w, str, http.StatusCreated)
 	}
 }

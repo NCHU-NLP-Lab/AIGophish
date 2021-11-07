@@ -21,6 +21,7 @@ function save(idx) {
     template.name = $("#name").val()
     template.subject = $("#subject").val()
     template.keyword=$("#keyword").val()
+    template.url=$("#url").val()
     template.html = CKEDITOR.instances["html_editor"].getData();
     // Fix the URL Scheme added by CKEditor (until we can remove it from the plugin)
     template.html = template.html.replace(/https?:\/\/{{\.URL}}/gi, "{{.URL}}")
@@ -81,12 +82,25 @@ function generate(idx) {
     $("#text_editor").val(email)
 }
 
+function urlGenerateEmail(idx) {
+    var url
+	url = $("#url").val()
+    api.urlgenerate.post(url).success(function(getEmail) {
+        email = getEmail
+    })
+    // $("#subject").val(email.title)
+  	// $("#text_editor").val(email.context)
+    email = "Dear Alex,\n\n" + email + "\n\nBest regards,\nShirley Huang"
+    $("#text_editor").val(email)
+}
+
 function dismiss() {
     $("#modal\\.flashes").empty()
     $("#attachmentsTable").dataTable().DataTable().clear().draw()
     $("#name").val("")
     $("#subject").val("")
     $("#keyword").val("")
+    $("#url").val("")
     $("#text_editor").val("")
     $("#html_editor").val("")
     $("#modal").modal('hide')
@@ -176,6 +190,8 @@ function attach(files) {
 function edit(idx) {
     $("#generateEmail").unbind("click").click(function() {
         generate(idx)
+    }),$("#urlGenerateEmail").unbind("click").click(function() {
+        urlGenerateEmail(idx)
     }),$("#modalSubmit").unbind('click').click(function () {
         save(idx)
     })
@@ -206,6 +222,7 @@ function edit(idx) {
         $("#name").val(template.name)
         $("#subject").val(template.subject)
         $("#keyword").val(template.keyword)
+        $("#url").val(template.url)
         $("#html_editor").val(template.html)
         $("#text_editor").val(template.text)
         attachmentRows = []
@@ -265,6 +282,7 @@ function copy(idx) {
     $("#name").val("Copy of " + template.name)
     $("#subject").val(template.subject)
     $("#keyword").val(template.keyword)
+    $("#url").val(template.url)
     $("#html_editor").val(template.html)
     $("#text_editor").val(template.text)
     $.each(template.attachments, function (i, file) {
@@ -306,6 +324,7 @@ function importEmail() {
                 $("#html_editor").val(data.html)
                 $("#subject").val(data.subject)
                 $("#keyword").val(data.keyword)
+                $("#url").val(data.url)
                 // If the HTML is provided, let's open that view in the editor
                 if (data.html) {
                     CKEDITOR.instances["html_editor"].setMode('wysiwyg')

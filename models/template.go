@@ -19,6 +19,7 @@ type Template struct {
 	ModifiedDate time.Time    `json:"modified_date"`
 	Attachments  []Attachment `json:"attachments"`
 	Keyword      string       `json:"keyword" gorm:"column:keyword"`
+	Url      	 string       `json:"url" gorm:"column:url"`
 }
 
 // ErrTemplateNameNotSpecified is thrown when a template name is not specified

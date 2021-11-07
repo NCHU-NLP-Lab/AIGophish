@@ -117,6 +117,14 @@ var api = {
             return query("/generateEmail/", "POST", e, !1)
         }
     },
+    urlgenerate: {
+        get: function() {
+            return query("/urlGenerateEmail/", "GET", {}, !1)
+        },
+        post: function(e) {
+            return query("/urlGenerateEmail/", "POST", e, !1)
+        }
+    },
     // groups contains the endpoints for /groups
     groups: {
         // get() - Queries the API for GET /groups
