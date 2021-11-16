@@ -72,26 +72,54 @@ function save(idx) {
 
 function generate(idx) {
     var email
-	keyword = $("#keyword").val()
+	var keyword = $("#keyword").val()
     api.generate.post(keyword).success(function(getEmail) {
         email = getEmail
     })
-    // $("#subject").val(email.title)
-  	// $("#text_editor").val(email.context)
-    email = "Dear Alex,\n\n" + email + "\n\nBest regards,\nShirley Huang"
-    $("#text_editor").val(email)
+    var greeting = "Dear Alex,"
+    var sign_off = "Best regards,"
+    var sign = "Shirley Huang"
+
+    var html = "<html>\n" +
+                "<head>\n" +
+                    "\t<title></title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<p>" + greeting + "</p>\n\n" +
+                "<p>" + email + "<br />\n" + 
+                "please click {{.URL}}</p>\n\n" +
+                "<p>" + sign_off + "<br />\n" +
+                sign + "</p>\n\n" +
+                "</body>\n" +
+                "</html>"
+    $("#html_editor").val(html)
 }
 
 function urlGenerateEmail(idx) {
-    var url
-	url = $("#url").val()
+    var email
+	var url = $("#url").val()
     api.urlgenerate.post(url).success(function(getEmail) {
         email = getEmail
     })
-    // $("#subject").val(email.title)
-  	// $("#text_editor").val(email.context)
-    email = "Dear Alex,\n\n" + email + "\n\nBest regards,\nShirley Huang"
-    $("#text_editor").val(email)
+    var email_len = email.length
+    email = email.substring(4, email_len-4)
+    var greeting = "Dear Alex,"
+    var sign_off = "Best regards,"
+    var sign = "Shirley Huang"
+
+    var html = "<html>\n" +
+                "<head>\n" +
+                    "\t<title></title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<p>" + greeting + "</p>\n\n" +
+                "<p>" + email + "<br />\n" + 
+                "please click {{.URL}}</p>\n\n" +
+                "<p>" + sign_off + "<br />\n" +
+                sign + "</p>\n\n" +
+                "</body>\n" +
+                "</html>"
+    $("#html_editor").val(html)
 }
 
 function dismiss() {
