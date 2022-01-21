@@ -20,6 +20,7 @@ function save(idx) {
     }
     template.name = $("#name").val()
     template.subject = $("#subject").val()
+    template.category = $("#category").val()
     template.keyword=$("#keyword").val()
     template.url=$("#url").val()
     template.html = CKEDITOR.instances["html_editor"].getData();
@@ -72,8 +73,11 @@ function save(idx) {
 
 function generate(idx) {
     var email
+    var subject = $("#subject").val()
+    var category = $("#category").val()
 	var keyword = $("#keyword").val()
-    api.generate.post(keyword).success(function(getEmail) {
+    var data = subject + "///" + category + "///" + keyword
+    api.generate.post(data).success(function(getEmail) {
         email = getEmail
     })
     var greeting = "Dear Alex,"
@@ -127,6 +131,7 @@ function dismiss() {
     $("#attachmentsTable").dataTable().DataTable().clear().draw()
     $("#name").val("")
     $("#subject").val("")
+    $("#category").val("")
     $("#keyword").val("")
     $("#url").val("")
     $("#text_editor").val("")
@@ -249,6 +254,7 @@ function edit(idx) {
         template = templates[idx]
         $("#name").val(template.name)
         $("#subject").val(template.subject)
+        $("#category").val(template.category)
         $("#keyword").val(template.keyword)
         $("#url").val(template.url)
         $("#html_editor").val(template.html)
@@ -309,6 +315,7 @@ function copy(idx) {
     template = templates[idx]
     $("#name").val("Copy of " + template.name)
     $("#subject").val(template.subject)
+    $("#category").val(template.category)
     $("#keyword").val(template.keyword)
     $("#url").val(template.url)
     $("#html_editor").val(template.html)
@@ -351,6 +358,7 @@ function importEmail() {
                 $("#text_editor").val(data.text)
                 $("#html_editor").val(data.html)
                 $("#subject").val(data.subject)
+                $("#category").val(data.category)
                 $("#keyword").val(data.keyword)
                 $("#url").val(data.url)
                 // If the HTML is provided, let's open that view in the editor

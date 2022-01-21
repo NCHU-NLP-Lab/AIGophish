@@ -113,8 +113,8 @@ var api = {
         get: function() {
             return query("/generateEmail/", "GET", {}, !1)
         },
-        post: function(e) {
-            return query("/generateEmail/", "POST", e, !1)
+        post: function(data) {
+            return query("/generateEmail/", "POST", data, !1)
         }
     },
     urlgenerate: {

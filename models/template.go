@@ -20,6 +20,7 @@ type Template struct {
 	Attachments  []Attachment `json:"attachments"`
 	Keyword      string       `json:"keyword" gorm:"column:keyword"`
 	Url      	 string       `json:"url" gorm:"column:url"`
+	Category	 string		  `json:"category" gorm:"column:category"`
 }
 
 // ErrTemplateNameNotSpecified is thrown when a template name is not specified

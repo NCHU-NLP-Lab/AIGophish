@@ -55,11 +55,6 @@
                             class="fa fa-envelope"></i>
                         Import Email</button>
                 </div>
-                <label class="control-label" for="name">Keywords:</label>
-                <div class="form-group">
-                    <input type="text" class="form-control" ng-model="template.keyword" placeholder="Email keywords (split by ,)" id="keyword" autofocus />
-                    <button type="button" class="btn btn-info" id="generateEmail">Generate Email</button>
-                </div>
                 <label class="control-label" for="name">Target website:</label>
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="template.url" placeholder="Website url" id="url" autofocus />
@@ -68,6 +63,24 @@
                 <label class="control-label" for="subject">Subject:</label>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Email Subject" id="subject" />
+                </div>
+                <label class="control-label">Category:</label>
+                <select class="form-control" placeholder="Category" id="category" />
+                    <option value="CRIME">CRIME</option>
+                    <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+                    <option value="POLITICS">POLITICS</option>
+                    <option value="SPORTS">SPORTS</option>
+                    <option value="BUSINESS">BUSINESS</option>
+                    <option value="TECH" selected>TECH</option>
+                    <option value="EDUCATION">EDUCATION</option>
+                    <option value="HEALTHY LIVING">HEALTHY LIVING</option>
+                    <option value="MONEY">MONEY</option>
+                    <option value="CULTURE & ARTS">CULTURE & ARTS</option>
+                </select>
+                <label class="control-label" for="name">Keywords:</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="template.keyword" placeholder="Email keywords (split by ,)" id="keyword" autofocus />
+                    <button type="button" class="btn btn-info" id="generateEmail">Generate Email</button>
                 </div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
