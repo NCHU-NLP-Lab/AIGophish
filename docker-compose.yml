@@ -1,0 +1,17 @@
+# docker-compose up --detach --build
+version: "3.8"
+
+services:
+  gophish:
+    build: "."
+    container_name: "gophish"
+    image: "nchunlplab/gophish"
+    restart: always
+    ports:
+      - "49160:80"
+      - "49159:3333"
+      - "49158:8080"
+      - "49157:8443"
+    volumes:
+      - ./gophish.db:/opt/gophish/gophish.db
+
